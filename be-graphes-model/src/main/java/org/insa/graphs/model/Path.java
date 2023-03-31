@@ -198,11 +198,26 @@ public class Path {
      * 
      * @return true if the path is valid, false otherwise.
      * 
-     * @deprecated Need to be implemented.
+
      */
     public boolean isValid() {
-        // TODO:
-        return false;
+        boolean pathValid=false;
+        boolean thirdCondition = true;
+        if(this.isEmpty()==true || this.arcs.isEmpty()==true){
+            pathValid=true;
+            return pathValid;
+        }
+        if(this.arcs.get(0).getOrigin().equals(this.origin)){
+            for(int i=0; i<this.arcs.size()-1;i++){
+                if(!this.arcs.get(i).getDestination().equals(this.arcs.get(i+1).getOrigin())){
+                    thirdCondition=false;
+                } 
+            }
+        }
+        if(thirdCondition==true){
+            pathValid=true;
+        }
+        return pathValid;
     }
 
     /**
@@ -210,11 +225,13 @@ public class Path {
      * 
      * @return Total length of the path (in meters).
      * 
-     * @deprecated Need to be implemented.
      */
     public float getLength() {
-        // TODO:
-        return 0;
+        float len = 0;
+        for(Arc currArc : this.arcs){
+            len += currArc.getLength();
+        }
+        return len;
     }
 
     /**
@@ -225,24 +242,32 @@ public class Path {
      * @return Time (in seconds) required to travel this path at the given speed (in
      *         kilometers-per-hour).
      * 
-     * @deprecated Need to be implemented.
+
      */
     public double getTravelTime(double speed) {
-        // TODO:
-        return 0;
+        double time = 0;
+        for(Arc currArc : this.arcs){
+            time += currArc.getTravelTime(speed);
+        }
+        return time;
     }
 
-    /**
+    /** 
      * Compute the time to travel this path if moving at the maximum allowed speed
      * on every arc.
      * 
      * @return Minimum travel time to travel this path (in seconds).
      * 
-     * @deprecated Need to be implemented.
-     */
+    */
     public double getMinimumTravelTime() {
-        // TODO:
-        return 0;
+        double min_time = 0;
+        for(Arc currArc : this.arcs){
+            min_time += currArc.getMinimumTravelTime();
+        }
+        return min_time;
     }
+
+
+
 
 }
