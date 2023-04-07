@@ -18,6 +18,15 @@ import java.util.List;
  */
 public class Path {
 
+
+
+
+///////////////////////////// Programme "FROM SCRATCH" pas fait ///////////////////////////////////////////////////
+
+
+
+
+
     /**
      * Create a new path that goes through the given list of nodes (in order),
      * choosing the fastest route if multiple are available.
@@ -30,13 +39,44 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
     public static Path createFastestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        if(nodes.size()>1){
+            for(int i = 0;i<nodes.size()-1;i++){
+                int flag = 0;
+                int tamp = 0;
+                double min = nodes.get(i).getSuccessors().get(0).getMinimumTravelTime();
+                for(int j = 0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                    if(nodes.get(i+1).equals(nodes.get(i).getSuccessors().get(j).getDestination())){
+                        if(flag == 1){
+                            if(nodes.get(i).getSuccessors().get(j).getMinimumTravelTime()<min){
+                                min = nodes.get(i).getSuccessors().get(j).getMinimumTravelTime();
+                                tamp = j; 
+                            }
+                        }
+                        else{
+                            flag = 1;
+                            min = nodes.get(i).getSuccessors().get(j).getMinimumTravelTime();
+                            tamp = j;
+                        }
+                    }
+
+                }
+                if(flag == 0){
+                    throw new IllegalArgumentException();
+                }
+                arcs.add(nodes.get(i).getSuccessors().get(tamp));
+            }
         return new Path(graph, arcs);
+        }
+        else if(nodes.size()==1){
+            return new Path(graph,nodes.get(0));
+        }
+        else{
+            return new Path(graph);
+        }
     }
 
     /**
@@ -51,13 +91,46 @@ public class Path {
      * @throws IllegalArgumentException If the list of nodes is not valid, i.e. two
      *         consecutive nodes in the list are not connected in the graph.
      * 
-     * @deprecated Need to be implemented.
      */
     public static Path createShortestPathFromNodes(Graph graph, List<Node> nodes)
             throws IllegalArgumentException {
         List<Arc> arcs = new ArrayList<Arc>();
-        // TODO:
+        
+        
+        if(nodes.size()>1){
+            for(int i = 0;i<nodes.size()-1;i++){
+                int flag = 0;
+                int tamp = 0;
+                float min = nodes.get(i).getSuccessors().get(0).getLength();
+                for(int j = 0;j<nodes.get(i).getNumberOfSuccessors();j++){
+                    if(nodes.get(i+1).equals(nodes.get(i).getSuccessors().get(j).getDestination())){
+                        if(flag == 1){
+                            if(nodes.get(i).getSuccessors().get(j).getLength()<min){
+                                min = nodes.get(i).getSuccessors().get(j).getLength();
+                                tamp = j; 
+                            }
+                        }
+                        else{
+                            flag = 1;
+                            min = nodes.get(i).getSuccessors().get(j).getLength();
+                            tamp = j;
+                        }
+                    }
+
+                }
+                if(flag == 0){
+                    throw new IllegalArgumentException();
+                }
+                arcs.add(nodes.get(i).getSuccessors().get(tamp));
+            }
         return new Path(graph, arcs);
+        }
+        else if(nodes.size()==1){
+            return new Path(graph,nodes.get(0));
+        }
+        else{
+            return new Path(graph);
+        }
     }
 
     /**
