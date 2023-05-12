@@ -3,6 +3,7 @@ package org.insa.graphs.algorithm.shortestpath;
 import org.insa.graphs.algorithm.AbstractInputData.Mode;
 import org.insa.graphs.model.Arc;
 import org.insa.graphs.model.Path;
+import org.insa.graphs.algorithm.AbstractInputData;
 import org.insa.graphs.algorithm.AbstractSolution;
 
 public class ShortestPathSolution extends AbstractSolution {
@@ -17,7 +18,7 @@ public class ShortestPathSolution extends AbstractSolution {
      * @param data Original input data for this solution.
      * @param status Status of the solution (UNKNOWN / INFEASIBLE).
      */
-    public ShortestPathSolution(ShortestPathData data, Status status) {
+    public ShortestPathSolution(AbstractInputData data, Status status) {
         super(data, status);
         this.path = null;
     }

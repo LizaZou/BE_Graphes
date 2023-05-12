@@ -40,12 +40,21 @@ public class Label {
         return this.previousArc;
     }
 
-    public Arc setPreviousArc(){
-        return this.previousArc; //TO DO
+    public Arc setPreviousArc(Arc a){
+        this.previousArc = a;
+        return this.previousArc; //TO DO?
     }
 
     public double getCost(){
         return this.currentValueShortestPath;
+    }
+
+    public void setMinCostIsKnown(){
+        this.minCostIsKnown= true;
+    }
+
+    public void setCurrentValueShortestPath(double newValue){
+        this.currentValueShortestPath = newValue;
     }
 
 }
