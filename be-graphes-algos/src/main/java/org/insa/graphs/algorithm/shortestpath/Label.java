@@ -3,7 +3,7 @@ import org.insa.graphs.model.Node;
 import org.insa.graphs.model.Arc;
 
 
-public class Label {
+public class Label implements Comparable<Label>{
 
     public Label(Node n, Arc a){
         this.currentNode=n;
@@ -49,12 +49,21 @@ public class Label {
         return this.currentValueShortestPath;
     }
 
+    public double getTotalCost(){
+        return this.currentValueShortestPath;
+    }
+
     public void setMinCostIsKnown(){
         this.minCostIsKnown= true;
     }
 
     public void setCurrentValueShortestPath(double newValue){
         this.currentValueShortestPath = newValue;
+    }
+
+    @Override
+    public int compareTo(Label o) {
+        return Double.compare(this.getTotalCost(),o.getTotalCost());
     }
 
 }
