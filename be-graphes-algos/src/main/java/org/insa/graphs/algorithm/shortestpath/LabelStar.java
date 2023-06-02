@@ -2,14 +2,21 @@ package org.insa.graphs.algorithm.shortestpath;
 import org.insa.graphs.model.Node;
 import org.insa.graphs.model.Arc;
 
-
 public class LabelStar extends Label{
-    
-    public LabelStar(Node n, Arc a, double estimatedCost){
-        super(n,a, estimatedCost);
-    }
-    public double getTotalCost(){
-        return this.getCost()+this.getEstimated();
-    }
 
+    private double coutEstimeDestination;
+    private Node destination;
+
+
+    public LabelStar(Node n, Arc a, Node destination){
+        super(n, a);
+        this.destination =destination;
+        this.coutEstimeDestination=n.getPoint().distanceTo(this.destination.getPoint());
+    }
+    
+
+    public double getTotalCost(){ //A réimplémenter par rapport à label
+        return this.getCost() + this.coutEstimeDestination;
+    }
+    
 }

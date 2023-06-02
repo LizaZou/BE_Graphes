@@ -10,15 +10,6 @@ public class Label implements Comparable<Label>{
         this.currentValueShortestPath=Double.MAX_VALUE;
         this.previousArc=a;
         this.minCostIsKnown=false;
-        this.estimatedCost = Double.MAX_VALUE;
-    }
-
-    public Label(Node n, Arc a, double estimatedCost){
-        this.currentNode=n;
-        this.currentValueShortestPath=Double.MAX_VALUE;
-        this.previousArc=a;
-        this.minCostIsKnown=false;
-        this.estimatedCost = estimatedCost;
     }
     //sommet associé à ce label
     private Node currentNode;
@@ -31,16 +22,6 @@ public class Label implements Comparable<Label>{
 
     //arc venant du prédécesseur qui a le coût le plus faible
     private Arc previousArc;
-
-    private double estimatedCost;
-
-    public double getEstimated(){
-        return this.estimatedCost;
-    }
-
-    public void setEstimated(int estimatedCost){
-        this.estimatedCost = estimatedCost;
-    } 
 
     public Node getNode(){
         return this.currentNode;
@@ -69,7 +50,7 @@ public class Label implements Comparable<Label>{
     }
 
     public double getTotalCost(){
-        return this.currentValueShortestPath;
+        return this.getCost();
     }
 
     public void setMinCostIsKnown(){

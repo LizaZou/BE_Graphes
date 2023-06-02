@@ -3,7 +3,6 @@ package org.insa.graphs.algorithm.shortestpath;
 
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
 
 import org.insa.graphs.algorithm.AbstractSolution.Status;
 import org.insa.graphs.algorithm.utils.BinaryHeap;
@@ -29,6 +28,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         super(data);
     }
 
+    //On définit une fonction qui permet d'implémenter la seule chose qui change pour AStar :
+    public Label createLabel(Node n ){
+       return new Label(n, null);
+    }
+    
+
     @Override
     protected ShortestPathSolution doRun() {
         final ShortestPathData data = getInputData();
@@ -41,8 +46,12 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
         //initialisation :
         for(Node n : graph.getNodes()){
             //associe chaque sommet à un label dont le coût min 
-            //est inconnu, dont le coût est infni
-            Label l = new Label(n, null);
+
+            /*est inconnu, dont le coût est infni                                       //Modifié pour l'algo AStar
+            Label l = new Label(n, null);*/
+            //à la place :
+            Label l=createLabel(n);
+
             //on range les labels dans un tableu de labels rangés selon leur id (voir classe Node)
             labelArray[n.getId()]=l;
         }
