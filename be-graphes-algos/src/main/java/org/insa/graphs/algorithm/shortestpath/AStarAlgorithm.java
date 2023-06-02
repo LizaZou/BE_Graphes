@@ -12,8 +12,9 @@ public class AStarAlgorithm extends DijkstraAlgorithm {
     }
 
     //On définit une fonction qui permet d'implémenter la seule chose qui change pour AStar :
-    public Label createLabel(Node n, Node d){
-        return new LabelStar(n, null, d);
+    public Label createLabel(Node n, Arc a){
+        Node d = data.getDestination();
+        return new LabelStar(n, a, d);
      }
 
      //Rien d'autre ne change : le rangement des sommets (selon coût depuis origine + coût estimpé à la destination) est fait par LabelStar

@@ -19,4 +19,5 @@ public class LabelStar extends Label{
         return this.getCost() + this.coutEstimeDestination;
     }
     
+    
 }

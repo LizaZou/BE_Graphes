@@ -29,8 +29,8 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
     }
 
     //On définit une fonction qui permet d'implémenter la seule chose qui change pour AStar :
-    public Label createLabel(Node n ){
-       return new Label(n, null);
+    public Label createLabel(Node n, Arc a){
+       return new Label(n, a);
     }
     
 
@@ -72,14 +72,15 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
                 labelCourant.setMinCostIsKnown();
                 notifyNodeMarked(nodeCourant);
                 tas.deleteMin();
-                //Node nodeSuccess = new Node(0, null);
+                
                 for(Arc a : nodeCourant.getSuccessors()){
-                    //nodeSuccess = a.getDestination();
+
                     if(!(labelArray[a.getDestination().getId()].getMinCostIsKnown())){
 
                         if(data.isAllowed(a)){
-
-                            if(labelArray[a.getDestination().getId()].getCurrentValueShortestPath() >= labelArray[nodeCourant.getId()].getCurrentValueShortestPath() + data.getCost(a)){
+                            Label compare = createLabel(nodeCourant, labelCourant.getPreviousArc());
+                            compare.setCurrentValueShortestPath(labelCourant.getCurrentValueShortestPath() + data.getCost(a));
+                            if(labelArray[a.getDestination().getId()].compareTo(compare) >= 0 ){
                                 labelArray[a.getDestination().getId()].setCurrentValueShortestPath(labelArray[nodeCourant.getId()].getCurrentValueShortestPath() + data.getCost(a));
                                 notifyNodeReached(a.getDestination());
                                 try {
@@ -90,13 +91,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
                                 tas.insert(labelArray[a.getDestination().getId()]);
                                 labelArray[a.getDestination().getId()].setPreviousArc(a);
                             }
-                    }
-                        /*
-                        if(wasChanged){
-
-                            //tas.insert(a.getDestination());
-                            labelArray[a.getDestination().getId()].setPreviousArc(a);
-                        } */
+                        }
                     }
                 }
             }while (!tas.isEmpty() && !labelArray[data.getDestination().getId()].getMinCostIsKnown());
