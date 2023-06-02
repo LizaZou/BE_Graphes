@@ -15,15 +15,10 @@ import org.insa.graphs.model.Path;
 public class DijkstraAlgorithm extends ShortestPathAlgorithm {
 
     // Retrouver le graph.
-    Graph graph = data.getGraph();
+    private Graph graph = data.getGraph();
 
     //structure pour obtenir le sommet de plus court chemin
     //ne contient que le sommet d'origine au début
-    
-    
-
-    
-
     public DijkstraAlgorithm(ShortestPathData data) {
         super(data);
     }
@@ -50,7 +45,7 @@ public class DijkstraAlgorithm extends ShortestPathAlgorithm {
             /*est inconnu, dont le coût est infni                                       //Modifié pour l'algo AStar
             Label l = new Label(n, null);*/
             //à la place :
-            Label l=createLabel(n);
+            Label l=createLabel(n, null);
 
             //on range les labels dans un tableu de labels rangés selon leur id (voir classe Node)
             labelArray[n.getId()]=l;
